@@ -1,45 +1,61 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="记录前端学习成长点滴"><meta name="keywords" content="前端开发"><title>前端优化 | bolt-像闪电一样</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">前端优化</h1><a id="logo" href="/.">bolt-像闪电一样</a><p class="description">每天进步一点点</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">前端优化</h1><div class="post-meta">Mar 20, 2017<span> | </span><span class="category"><a href="/categories/日志/">日志</a><a href="/categories/日志/二级目录/">二级目录</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，前端优化的目的是什么 ?</p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="记录前端学习成长点滴"><meta name="keywords" content="前端开发"><title>前端优化 | bolt-像闪电一样</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">前端优化</h1><a id="logo" href="/.">bolt-像闪电一样</a><p class="description">每天进步一点点</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">前端优化</h1><div class="post-meta">Mar 20, 2017<span> | </span><span class="category"><a href="/categories/日志/">日志</a><a href="/categories/日志/二级目录/">二级目录</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>前端优化主要是在性能上下功夫，只有这样才能给用户带来更好的体验，而且不管在面试中还是实际需求中，网站优化都是重中之重，所以，了解前端优化很重要。   </p>
+<hr>
+<p> 一般说来，web前端指网站业务逻辑之前的部分，包括浏览器加载、网站视图模型、图片服务、CDN服务等，主要优化手段有浏览器访问、使用反向代理才、CDN等。</p>
 <ul>
-<li>从用户角度而言，优化能够让页面加载得更快、对用户的操作响应得更及时，能够给用户提供更为友好的体验。</li>
-<li>从服务商角度而言，优化能够减少页面请求数、或者减小请求所占带宽，能够节省可观的资源。  </li>
+<li>浏览器请求处理流程如下图：<br><img src="http://img.blog.csdn.net/20160521221948295" alt="image"></li>
 </ul>
-<p>总之，恰当的优化不仅能够改善站点的用户体验并且能够节省相当的资源利用。<br>前端优化的途径有很多，按粒度大致可以分为两类，第一类是页面级别的优化，例如 HTTP请求数、脚本的无阻塞加载、内联脚本的位置优化等 ;第二类则是代码级别的优化，例如 Javascript中的DOM 操作优化、CSS选择符优化、图片优化以及 HTML结构优化等等。另外，本着提高投入产出比的目的，后文提到的各种优化策略大致按照投入产出比从大到小的顺序排列。</p>
-<h3 id="页面级优化"><a href="#页面级优化" class="headerlink" title="页面级优化"></a>页面级优化</h3><ol>
-<li>减少 HTTP请求数  　　</li>
-</ol>
+<blockquote>
+<p>那么到底应该如何实现页面优化呢？可以从以下几点方面来实现：</p>
+</blockquote>
+<h3 id="HTML部分"><a href="#HTML部分" class="headerlink" title="HTML部分"></a>HTML部分</h3><h5 id="1-避免使用iframe"><a href="#1-避免使用iframe" class="headerlink" title="1. 避免使用iframe"></a>1. 避免使用iframe</h5><p>iframe也叫内联frame，可将一个HTML文档嵌入另一个HTML文档中。<br>iframe的好处是，嵌入的文档独立于父文档，通常也借此使浏览器模拟多线程。缺点是：    </p>
 <ul>
-<li>从设计实现层面简化页面　　</li>
-<li>合理设置 HTTP缓存<br>怎样才算合理设置?原则很简单，能缓存越多越好，能缓存越久越好。例如，很少变化的图片资源可以直接通过 HTTP Header中的Expires设置一个很长的过期头 ;变化不频繁而又可能会变的资源可以使用 Last-Modifed来做请求验证。尽可能的让资源能够在缓存中待得更久。</li>
-<li>资源合并与压缩<br>如果可以的话，尽可能的将外部的脚本、样式进行合并，多个合为一个。另外，CSS、Javascript、Image 都可以用相应的工具进行压缩，压缩后往往能省下不少空间。<br>*. CSS Sprites<br>合并 CSS图片，减少请求数的又一个好办法。</li>
-<li>Lazy Load Images(图片懒加载)<br>对于图片而言，在页面刚加载的时候可以只加载第一屏，当用户继续往后滚屏的时候才加载后续的图片。</li>
+<li>①虽然iframe能模拟多线程，但主流浏览器的同域名并行下载数是不变的，浏览器对同域名的链接总是共享浏览器级别的连接池， 即使是不同窗口或标签页的同域名网页。  </li>
+<li>②在页面加载时，iframe会阻塞父文档onload事件的触发。并且有些浏览器需在触发onload事件后才能被触发onunload事件。故用户用onload事件长久未触发而离开页面时，不会触发onunload事件。  </li>
 </ul>
-<ol>
-<li>将外部脚本置底  </li>
-</ol>
-<p>浏览器是可以并发请求的，这一特点使得其能够更快的加载资源，然而外链脚本在加载时却会阻塞其他资源，例如在脚本加载完成之前，它后面的图片、样式以及其他脚本都处于阻塞状态，直到脚本加载完成后才会开始加载。如果将脚本放在比较靠前的位置，则会影响整个页面的加载速度从而影响用户体验。解决这一问题的方法有很多，在 这里有比较详细的介绍 (这里是译文和 更详细的例子 )，而最简单可依赖的方法就是将脚本尽可能的往后挪，减少对并发下载的影响。</p>
-<ol>
-<li>异步执行 inline脚本(其实原理和上面是一样，保证脚本在页面内容后面加载。)    </li>
-</ol>
-<p>inline脚本对性能的影响与外部脚本相比，是有过之而无不及。首页，与外部脚本一样，inline脚本在执行的时候一样会阻塞并发请求，除此之外，由于浏览器在页面处理方面是单线程的，当inline脚本在页面渲染之前执行时，页面的渲染工作则会被推迟。简而言之，inline脚本在执行的时候，页面处于空白状态。鉴于以上两点原因，建议将执行时间较长的inline脚本异步执行，异步的方式有很多种，例如使用script元素的defer 属性(存在兼容性问题和其他一些问题，例如不能使用 document.write)、使用setTimeout ，此外，在HTML5中引入了 Web Workers的机制，恰恰可以解决此类问题。</p>
-<ol>
-<li>Lazy Load Javascript（只有在需要加载的时候加载，在一般情况下并不加载信息内容。）  　　</li>
-</ol>
-<p>随着 Javascript框架的流行，越来越多的站点也使用起了框架。不过，一个框架往往包括了很多的功能实现，这些功能并不是每一个页面都需要的，如果下载了不需要的脚本则算得上是一种资源浪费 -既浪费了带宽又浪费了执行花费的时间。目前的做法大概有两种，一种是为那些流量特别大的页面专门定制一个专用的 mini版框架，另一种则是 Lazy Load。YUI 则使用了第二种方式，在YUI的实现中，最初只加载核心模块，其他模块可以等到需要使用的时候才加载。</p>
-<ol>
-<li><p>将 CSS放在 HEAD中　<br>　<br>如果将 CSS放在其他地方比如BODY中，则浏览器有可能还未下载和解析到CSS就已经开始渲染页面了，这就导致页面由无 CSS状态跳转到CSS状态，用户体验比较糟糕。除此之外，有些浏览器会在CSS下载完成后才开始渲染页面，如果 CSS放在靠下的位置则会导致浏览器将渲染时间推迟。</p>
-</li>
-<li><p>异步请求 Callback（就是将一些行为样式提取出来，慢慢的加载信息的内容）　　<br>在某些页面中可能存在这样一种需求，需要使用script标签来异步的请求数据。类似：　　</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Javascript:/*Callback 函数*/ function myCallback(info)&#123; //do something here &#125;</div><div class="line">HTML:　　cb返回的内容 :myCallback(&apos;Hello world!&apos;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>像以上这种方式直接在页面上写script对页面的性能也是有影响的，即增加了页面首次加载的负担，推迟了 DOMLoaded和window.onload 事件的触发时机。如果时效性允许的话，可以考虑在 DOMLoaded事件触发的时候加载，或者使用 setTimeout方式来灵活的控制加载的时机。</p>
-<ol>
-<li><p>减少不必要的 HTTP跳转　　<br>对于以目录形式访问的 HTTP链接，很多人都会忽略链接最后是否带’/‘，假如你的服务器对此是区别对待的话，那么你也需要注意，这其中很可能隐藏了301跳转，增加了多余请求。具体参见下图，其中第一个链接是以无 ’/‘结尾的方式访问的，于是服务器有了一次跳转。</p>
-</li>
-<li><p>避免重复的资源请求<br>这种情况主要是由于疏忽或页面由多个模块拼接而成，然后每个模块中请求了同样的资源时，会导致资源的重复请求</p>
-</li>
-</ol>
-<h3 id="代码级优化"><a href="#代码级优化" class="headerlink" title="代码级优化"></a>代码级优化</h3><ol>
-<li>Javascript<br>(1). DOM<br>DOM操作应该是脚本中最耗性能的一类操作，例如增加、修改、删除DOM元素或者对DOM集合进行操作。如果脚本中包含了大量的 DOM操作则需要注意以下几点：</li>
-</ol>
+<p>※不兼容IE6~8的解决方案：使用JavaScript动态加载iframe元素或动态设置其src属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;iframe id=ifr &gt;&lt;/iframe&gt;</div><div class="line">document.getElementById( ‘ifr’ ).setAttribute( ‘src’ , ‘url ’ );</div></pre></td></tr></table></figure></p>
+<ul>
+<li>③iframe是文档内最消耗资源的元素之一，即使是空iframe的开销也是昂贵的。</li>
+</ul>
+<h5 id="2-避免空连接属性"><a href="#2-避免空连接属性" class="headerlink" title="2. 避免空连接属性"></a>2. 避免空连接属性</h5><p>空连接指：img、link、script 和 iframe元素的src或href属性的值为空。（如src = ””）<br>设置了空连接后浏览器依然会以默认规则发送请求：  </p>
+<ul>
+<li>①IE6~8中只有img元素会出问题：IE会将img的空地址解析为当前页面地址的目录地址并请求。如当前网页地址为<a href="http://aaa.com/bb/c.html，img的地址会被解析为http://aaa.com/bb" target="_blank" rel="external">http://aaa.com/bb/c.html，img的地址会被解析为http://aaa.com/bb</a>    </li>
+<li>②早些版本的Webkit和Firefox会将空连接解析为当前页面的地址。在ios与android中此问题较严重。如果页面有多个空连接属性元素，会增加服务器的请求次数。  </li>
+<li>③幸运的是，主流浏览器对iframe的src属性值为空时，会解析为about:blank地址，而不发送额外请求。</li>
+</ul>
+<h5 id="3-避免节点深层级嵌套"><a href="#3-避免节点深层级嵌套" class="headerlink" title="3. 避免节点深层级嵌套"></a>3. 避免节点深层级嵌套</h5><p>层级越深的节点在初始化构建时，所占内存越多。<br>通过浏览器HTML解析器会将整个HTML文档的结构存储为DOM树结构。当节点嵌套层次越深，构建的DOM书层次也越深。</p>
+<h5 id="4-缩减HTML文档大小"><a href="#4-缩减HTML文档大小" class="headerlink" title="4. 缩减HTML文档大小"></a>4. 缩减HTML文档大小</h5><ul>
+<li>①删除对执行结果无影响的空格空行和注释；  </li>
+<li>②避免table布局；  </li>
+<li>③使用HTML5；</li>
+</ul>
+<h5 id="5-显式指定文档字符集"><a href="#5-显式指定文档字符集" class="headerlink" title="5.显式指定文档字符集"></a>5.显式指定文档字符集</h5><p>在HTML页面开时指定字符集有助于浏览器立即开始解析HTML代码。<br>HTML文档通常被解析为一序列的带字符集编码信息的字符串，通过Internet传送。<br>字符集编码在HTTP响应头中，或HTML标记中指定。浏览器通过指定的字符集，吧编码解析为可现实在屏幕上的字符。<br>若浏览器无法获知页面的编码字符集，一般会在执行脚本和渲染页面之前，先将字节流缓存，再搜索可进行解析的字符集 或 以默认字符集来解析。</p>
+<h5 id="6-显示设置图片的宽高"><a href="#6-显示设置图片的宽高" class="headerlink" title="6. 显示设置图片的宽高"></a>6. 显示设置图片的宽高</h5><p>有时需要在页面加载完之前，就对页面布局进行定位。<br>若页面中的图片没指定尺寸，或尺寸与实际图片大小不符，浏览器会在图片下载完成后再”回溯”该图片并重新显示，从而浪费时间。<br>故最好为页面的图片设置指定尺寸（行内样式或CSS样式）</p>
+<h5 id="7-避免脚本阻塞加载"><a href="#7-避免脚本阻塞加载" class="headerlink" title="7. 避免脚本阻塞加载"></a>7. 避免脚本阻塞加载</h5><p>浏览器在解析常规script标签时，会等待script下载完毕后，才解析执行，之后的HTML代码就只能等待。</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><h5 id="1-避免使用-import"><a href="#1-避免使用-import" class="headerlink" title="1. 避免使用@import"></a>1. 避免使用@import</h5><p>CSS2.1加入的@import，会使页面在加载时添加额外延迟。<br>由于浏览器不能并行下载样式，会导致页面增添额外的往返耗时。而使用<link>能并行下载样式，但任然是多次请求。</p>
+<h5 id="2-避免AlphaImageLoader滤镜"><a href="#2-避免AlphaImageLoader滤镜" class="headerlink" title="2. 避免AlphaImageLoader滤镜"></a>2. 避免AlphaImageLoader滤镜</h5><p>此滤镜能解决IE6即一下版本显示PNG图片的半透明效果，但会在加载图片时终止内容的呈现，并冻结浏览器。<br>在每个元素(不仅仅是图片)都会运算一次，添加内存开支。<br>应使用PNG8格式来代替，或用下划线(_filter)只针对IE6。</p>
+<h5 id="3-避免CSS表达式"><a href="#3-避免CSS表达式" class="headerlink" title="3. 避免CSS表达式"></a>3. 避免CSS表达式</h5><p>CSS表达式是动态设置CSS属性的强大（但危险）方法。Internet Explorer从第5个版本开始支持CSS表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">隔1s切换一次背景颜色 input鼠标移入移出变换背景</div><div class="line">//css</div><div class="line">body&#123;</div><div class="line"> background-color: expression( (new Date()).getSeconds()%2 ? &quot;#B8D4FF&quot; : &quot;#F08A00&quot; );  </div><div class="line">&#125;</div><div class="line">input </div><div class="line">&#123;  </div><div class="line"> star : expression(  </div><div class="line">    onmouseover=function()&#123;this.style.backgroundColor=&quot;green&quot;&#125;,  </div><div class="line">    onmouseout=function()&#123;this.style.backgroundColor=&quot;red&quot;&#125;</div><div class="line">             )  </div><div class="line">&#125;</div><div class="line">//HTML</div><div class="line">&lt;body &gt;</div><div class="line"> &lt;input type=&quot;text&quot;/&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>css表达式算频率要比我们想象的多。千上万次并且可能会对你页面的性能产生影响。<br>在页面滚动、乃至移动鼠标时都会要重新计算一次。随便移动鼠标都可以轻松达到10000次以上的计算量。</p>
+<blockquote>
+<p>解决方案：如果样式属性必须在页面周期内动态地改变，使用事件句柄来代替CSS表达式，或者使用使用jQuery方法代替</p>
+</blockquote>
+<h5 id="4-避免通配选择器"><a href="#4-避免通配选择器" class="headerlink" title="4. 避免通配选择器"></a>4. 避免通配选择器</h5><p>优化选择器的原则是减少匹配时间。<strong>CSS选择器的匹配机制是：从右向左进行规制匹配</strong>的！  </p>
+<p>#header &gt; a { font-weight:blod;}这条规制实际是浏览器遍历页面所有a元素，并确定其父元素的id是否为header。  </p>
+<p>#header  a {…}  后代选择器开销更大，在遍历页面的所有a元素后，会需向上遍历直到根节点。<br>由此可知，选择器最右边的规制往往决定了向左移匹配的工作量。故<strong>最右边的选择规则 称之为关键选择器</strong>。</p>
+<h5 id="5-避免单规则的属性选择器"><a href="#5-避免单规则的属性选择器" class="headerlink" title="5. 避免单规则的属性选择器"></a>5. 避免单规则的属性选择器</h5><p>.selected [href=’#index’] {…}浏览器先匹配所有的元素，检查其是否有href属性并且值为“#index”，再分别向上匹配class为selected的元素。<br>故应该避免使用关键选择器是单规则属性选择器的规则。</p>
+<h5 id="6-避免正则的属性选择器"><a href="#6-避免正则的属性选择器" class="headerlink" title="6.避免正则的属性选择器"></a>6.避免正则的属性选择器</h5><p>CSS3添加了复杂的属性选择器，通过类正则表达式进行匹配。但这些类型的选择器会比基于类别的匹配慢很多。</p>
+<h5 id="7-移除无匹配的样式"><a href="#7-移除无匹配的样式" class="headerlink" title="7.移除无匹配的样式"></a>7.移除无匹配的样式</h5><ul>
+<li>①删除无用的样式，可缩减样式文件大小，加快加载速度。  </li>
+<li>②对于浏览器，所有样式规则都会被解析后索引起来，即使是当前页面无匹配的规则！故移除无匹配的规则，减少索引项，加快浏览器查找速度。</li>
+</ul>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><h5 id="1-使用事件代理"><a href="#1-使用事件代理" class="headerlink" title="1.使用事件代理"></a>1.使用事件代理</h5><p>当过多的事件句柄被频繁触发时，页面反应会迟钝。<br>如一个div有10个按钮，只需给div附加一次事件句柄，而不必给每个按钮添加一个句柄。</p>
+<h5 id="2-缓存选择器查询结果"><a href="#2-缓存选择器查询结果" class="headerlink" title="2.缓存选择器查询结果"></a>2.缓存选择器查询结果</h5><p>减少选择器查询的次数，并尽可能缓存选中的结果，便于以后的重用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">jQuery(&apos;#top&apos;).find(&apos;p.classA&apos;);</div><div class="line">...</div><div class="line">jQuery(&apos;#top&apos;).find(&apos;p.classB&apos;);</div><div class="line"></div><div class="line">//使用下面的方法 减少开销</div><div class="line">var cached = jQuery(&apos;#top&apos;);</div><div class="line">cached.find(&apos;p.classA&apos;);</div><div class="line">...</div><div class="line">cached.find(&apos;p.classB&apos;);</div></pre></td></tr></table></figure></p>
+<h5 id="3-避免频繁的IO操作-读写操作"><a href="#3-避免频繁的IO操作-读写操作" class="headerlink" title="3.避免频繁的IO操作(读写操作)"></a>3.避免频繁的IO操作(读写操作)</h5><p>应减少对cookie或localstorage的操作，因为对它们进行操作的API是同步的，而它们是多个tab页面间共享的。<br>多页面同时操作cookie和localstorage时，会存在同步加锁机制。</p>
+<h5 id="4-避免频繁的DOM操作"><a href="#4-避免频繁的DOM操作" class="headerlink" title="4. 避免频繁的DOM操作"></a>4. 避免频繁的DOM操作</h5><p>JavaScript访问DOM元素缓慢，应做到：  </p>
+<ul>
+<li>①缓存已经查询过的元素；</li>
+<li>②线下更新完节点之后，在将它们添加到文档树中；</li>
+<li>③避免使用JavaScript来修改页面布局。</li>
+</ul>
+<h5 id="5-使用微类库"><a href="#5-使用微类库" class="headerlink" title="5.使用微类库"></a>5.使用微类库</h5><p>尽量避免使用大而全的类库，而是按需使用微类库来辅助开发。因为大而全的类库好多代码是不需要的，浪费加载时间</p>
+<p>本文整理自：<a href="http://madscript.com/performance/high-performance-frontend/" target="_blank" rel="external">http://madscript.com/performance/high-performance-frontend/</a></p>
 </div><div class="tags"></div><div class="post-nav"><a href="/2017/03/20/日常String、Number、Array、Math和Json方法/" class="next">日常String、Number、Array、Math和Json方法</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="widget"><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="请输入关键字..."/></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/">日志</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/二级目录/">二级目录</a><span class="category-list-count">2</span></li></ul></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/string/" style="font-size: 15px;">string</a> <a href="/tags/number/" style="font-size: 15px;">number</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-fei"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/03/20/日常String、Number、Array、Math和Json方法/">日常String、Number、Array、Math和Json方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/20/hello-world/">前端优化</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.3.0" async></script><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |<a href="/atom.xml">订阅本站</a> |<span>联系博主：<a href="mailto:530399239@qq.com" target="_blank" class="fa fa-email"> </a><a href="http://weibo.com/5898588397" target="_blank" class="fa fa-weibo"></a><a href="https://github.com/angeljie889" target="_blank" class="fa fa-github"> </a></span></p><p><span> Copyright &copy;<a href="/." rel="nofollow">刘杰</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span><span><a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> Theme </a>by<a rel="nofollow" target="_blank" href="https://github.com/chaooo"> Charles.</a></span></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=1.3.0"></script></body></html>
