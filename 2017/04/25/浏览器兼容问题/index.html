@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="记录前端学习成长点滴"><meta name="keywords" content="前端开发"><title>浏览器兼容问题 | bolt-像闪电一样</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">浏览器兼容问题</h1><a id="logo" href="/.">bolt-像闪电一样</a><p class="description">每天进步一点点</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">浏览器兼容问题</h1><div class="post-meta">Apr 25, 2017<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>浏览器兼容是前端开发人员必须掌握的一个技能,要认识到浏览器的兼容问题，首先要了解浏览器的内核，浏览器内核一般分为四种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Trident(IE内核)：IE浏览器，360浏览器等等</div><div class="line"></div><div class="line">Gecko(Firefox内核)： Mozilla Firefox等</div><div class="line"></div><div class="line">Webkit(Safari内核,Chrome内核原型,开源)：Google Chrome，傲游浏览器3，Android 默认浏览器</div><div class="line"></div><div class="line">Blink(Google和Opera)：Chrome（28及往后版本）、Opera（15及往后版本）</div><div class="line"></div><div class="line">Presto(Opera前内核)： Nokia 770 等</div></pre></td></tr></table></figure></p>
+<p>对浏览器兼容问题，我一般是这样分类的，HTML兼容，Javascript兼容，CSS兼容。其中html相关问题比较容易处理，无非是使用了低版本浏览器无法识别的标签致其不能解析，所以平时注意一点就是。特别是HTML5增加了许多新标签，低版本浏览器不识别新标签，其中的代表为IE6-8。 </p>
+<hr>
+<p>下面就说几个常见的浏览器兼容性问题，要是是兼容性问题太多，平常多多注意就好，下面几个仅供参考</p>
+<h3 id="javascript兼容性问题"><a href="#javascript兼容性问题" class="headerlink" title="javascript兼容性问题"></a>javascript兼容性问题</h3><p>在javascript中，各个浏览器基本语法差距不大，其兼容问题主要出现在各个浏览器的实现上，尤其对事件的支持有很大问题。</p>
+<ul>
+<li>1 事件绑定和解绑事件<ol>
+<li>事件绑定IE为attachEvent，标准浏览器为addEventListener</li>
+<li>事件解绑IE为detachEvent，标准浏览器为removeEventListener</li>
+</ol>
+</li>
+<li>2 触发事件对象（触发事件的元素被认为是目标target）:<ol>
+<li>IE下，window.event对象有srcElement属性，但没有target属性。  </li>
+<li>Firefox下，e对象有target属性，但没有srcElement属性。  </li>
+<li>Chrome下，e对象同时具有target和srcElement属性。<br>==解决方案==：event.srcElement ? event.srcElement : event.target来兼容。</li>
+</ol>
+</li>
+<li>3 阻止事件的默认行为 ： <ol>
+<li>IE 中阻止事件的默认行为需要将window.event.returnValue属性设置为false。</li>
+<li>非IE阻止事件的默认行为需要调用 e.preventDefault() 方法。<br>==解决方案==：条件判断浏览器是否具有event.preventDefault再做相应处理。</li>
+</ol>
+</li>
+<li>4 阻止事件冒泡：<ol>
+<li>IE阻止事件冒泡需要设置window.event.cancelBubble = true。</li>
+<li>非IE阻止事件冒泡需要调用e.stopPropagation()。<br>==解决方案==：条件判断浏览器是否具有event.stopPropagation再做相应处理。</li>
+</ol>
+</li>
+<li><p>5 IE里table和tr的innerhtml不管用，要降到td一级使用innerHTML。</p>
+</li>
+<li><p>6 鼠标滚轮事件</p>
+<ol>
+<li>除Firefox使用DOMMouseScroll事件，其余浏览器使用mousewheel事件</li>
+<li><p>==在IE和Chrome下通过event.wheelDelta==的返回值可以知道滚轮是向上滚的还是向下滚的，当返回值为正值的时候，说明是向上滚，当返回值是负值的时候，说明是向下滚；但是event.wheelDelta在火狐下并不起作用，==在Firefox下需要通过event.detail==来知道滚轮是向上滚的还是向下滚，火狐下还有一点不同：当返回值为正值的时候，说明是向下滚，当返回值是负值的时候，说明是向上滚</p>
+<blockquote>
+<p>示例代码：  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">window.onload = function () &#123;</div><div class="line">        var oDiv = document.getElementById(&apos;div1&apos;);</div><div class="line">  </div><div class="line">        function onMouseWheel(ev) &#123;/*当鼠标滚轮事件发生时，执行一些操作*/</div><div class="line">            var ev = ev || window.event;</div><div class="line">            var down = true; // 定义一个标志，当滚轮向下滚时，执行一些操作</div><div class="line">                down = ev.wheelDelta?ev.wheelDelta&lt;0:ev.detail&gt;0;</div><div class="line">            if(down)&#123;</div><div class="line">                oDiv.style.height = oDiv.offsetHeight+10+&apos;px&apos;;</div><div class="line">            &#125;else&#123;</div><div class="line">                oDiv.style.height = oDiv.offsetHeight-10+&apos;px&apos;;</div><div class="line">            &#125;</div><div class="line">            if(ev.preventDefault)&#123;/*FF 和 Chrome*/</div><div class="line">                ev.preventDefault();// 阻止默认事件</div><div class="line">            &#125;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">        addEvent(oDiv,&apos;mousewheel&apos;,onMouseWheel);</div><div class="line">        addEvent(oDiv,&apos;DOMMouseScroll&apos;,onMouseWheel);</div><div class="line">     &#125;</div><div class="line">    function addEvent(obj,xEvent,fn) &#123;</div><div class="line">        if(obj.attachEvent)&#123;</div><div class="line">            obj.attachEvent(&apos;on&apos;+xEvent,fn);</div><div class="line">        &#125;else&#123;</div><div class="line">            obj.addEventListener(xEvent,fn,false);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>7 event.x与event.y问题<ol>
+<li>IE下,event对象有x,y属性,但是没有pageX,pageY属性;</li>
+<li>Firefox下,event对象有pageX,pageY属性,但是没有x,y属性.<br>==解决方法==：使用mX(mX = event.x ? event.x : event.pageX;)来代替IE下的event.x或者Firefox下的event.pageX.</li>
+</ol>
+</li>
+<li>8 AJAX问题<ol>
+<li>IE下new ActiveXObject(“Microsoft.XMLHTTP”)</li>
+<li>非IEnew XMLHttpRequest()<br>==解决方案：==<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var xmlHttp;</div><div class="line">function createxmlHttpRequest() &#123;</div><div class="line">    if (window.ActiveXObject) &#123;</div><div class="line">        xmlHttp = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</div><div class="line">    &#125; else if (window.XMLHttpRequest) &#123;</div><div class="line">        xmlHttp=new XMLHttpRequest();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>9 IE与非IE的父元素的区别<ol>
+<li>IE父元素节点：obj.parentElement</li>
+<li>非IE父元素节点：obj.parentNode</li>
+</ol>
+</li>
+<li>10 input.type属性问题<ol>
+<li>IE下input.type属性为只读，但是Firefox下input.type属性为读写。<br>==解决方法：== 不修改input.type属性。如果必须要修改，可以先隐藏原来的input，然后在同样的位置再插入一个新的input元素。</li>
+</ol>
+</li>
+</ul>
+<h3 id="css兼容问题"><a href="#css兼容问题" class="headerlink" title="css兼容问题"></a>css兼容问题</h3><ul>
+<li>1 CSS透明<ol>
+<li>IE：filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);；</li>
+<li>非IE：opacity: 0.5; </li>
+</ol>
+</li>
+<li>2 盒模型不一致<ol>
+<li>IE盒模型中width和height包括padding和border</li>
+<li>标准盒模型中width和height不包括padding和borddr<br>==解决办法：==设置box-sizing：border-box;width和height就包括padding和border了</li>
+</ol>
+</li>
+<li><p>3 无法定义1px左右高度的容器<br>  1.IE6下这个问题是因为默认的行高造成的,解决的技巧也有很多：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">例如:overflow:hidden　 zoom:0.08 　 line-height:1px</div></pre></td></tr></table></figure>
+</li>
+<li><p>4 超链接访问过后hover样式就不出现的问题<br>  被点击访问过的超链接样式不在具有hover和active了,很多人应该都遇到过这个问题,解决技巧是改变CSS属性的排列顺序: L-V-H-A </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a:link &#123;&#125; </div><div class="line">a:visited &#123;&#125; </div><div class="line">a:hover &#123;&#125; </div><div class="line">a:active &#123;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>5 页面的最小宽度<br>  IE不识别min,但实际上它把正常的width和height当作有min的情况来使，要实现最小宽度，可用下面的方法：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#container&#123; </div><div class="line">    min-width: 600px;</div><div class="line">    width:expression(document.body.clientWidth＜ 600? “600px”: “auto” );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>  如果只用宽度和高度，正常的浏览器里这两个值就不会变，如果只用min-width和min-height的话，IE下面根本等于没有设置宽度和高度。<br>  比如要设置背景图片，这个宽度是比较重要的。要解决这个问题，可以这样：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#box&#123; </div><div class="line">    width: 80px; </div><div class="line">    height: 35px;</div><div class="line">&#125;</div><div class="line">html&gt;body #box&#123; </div><div class="line">    width: auto; </div><div class="line">    height: auto; </div><div class="line">    min-width: 80px; </div><div class="line">    min-height: 35px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>6 DIV浮动IE文本产生3象素的bug<br>  左边对象浮动，右边采用外补丁的左边距来定位，右边对象内的文本会离左边有3px的间距.</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    #box&#123; float:left; width:800px;&#125; </div><div class="line">    #left&#123; float:left; width:50%;&#125; </div><div class="line">    #right&#123; width:50%;&#125; </div><div class="line">    *html #left&#123; margin-right:-3px; //这句是关键&#125; </div><div class="line">&lt;/style&gt;</div><div class="line">&lt;div id=”box”&gt;</div><div class="line">    &lt;div id=”left”&gt;&lt;/div&gt;</div><div class="line">    &lt;div id=”right”&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>7 E6下图片下有空隙产生<br>  解决这个BUG的技巧有很多,可以是改变html的排版,或者设置img为display:block或者设置vertical-align属性为vertical-align:top/bottom/middle/text-bottom 都可以解决.</p>
+</li>
+<li>8 元素水平居中问题  <ol>
+<li>FF: margin:0 auto;</li>
+<li>IE: 父级{ text-align:center; }</li>
+</ol>
+</li>
+</ul>
+<h3 id="HTML兼容问题"><a href="#HTML兼容问题" class="headerlink" title="HTML兼容问题"></a>HTML兼容问题</h3><p>HTML的兼容问题说白了就是低版本浏览器不认识H5的新标签的原因，在火狐和chrome之类的浏览器中，遇到不认识的标签，只要给个display:block属性，就能让这个元素成为一个类似div的元素，但是到IE上就很恶心了，它不认识就是不认识，你在html和css里添加什么它都不理你。那怎么解决呢？只要加一行JS代码就可以解决了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.createElement(&quot;这里写标签名&quot;);</div></pre></td></tr></table></figure></p>
+<p>这条语句可以理解为：我要创建一个新标签，IE你别再说你不认识了！但是h5的标签有很多，手工一个个创建耗时不说，还可能写错或者漏掉，到时候出了BUG又是无从下手了，所以，在这里推荐两款专门为了h5标签兼容IE所开发的插件，你只需要引入它，不需要做多余的事：<br><a href="https://github.com/ddouble/bsie" target="_blank" rel="external">Bsie</a>这个名字很有趣，其实看完它的源码后会发现，它就是帮我们把所有的h5标签都创建了一遍，免去了我们手工创建的时间。<br><a href="https://github.com/aFarkas/html5shiv" target="_blank" rel="external">html5shiv</a>和上面的插件功能一样,它会帮我们把不是h5标签里的自定义标签也创建一次，这意味着我们在创建一个自定义标签的时候，不用考虑这个标签会不会生效了，真是贴体入微。</p>
+</div><div class="tags"><a href="/tags/浏览器兼容/">浏览器兼容</a></div><div class="post-nav"><a href="/2017/03/20/日常String、Number、Array、Math和Json方法/" class="pre">日常String、Number、Array、Math和Json方法</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="widget"><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="请输入关键字..."/></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/">日志</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日志/二级目录/">二级目录</a><span class="category-list-count">2</span></li></ul></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/浏览器兼容/" style="font-size: 15px;">浏览器兼容</a> <a href="/tags/string/" style="font-size: 15px;">string</a> <a href="/tags/number/" style="font-size: 15px;">number</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/网站优化/" style="font-size: 15px;">网站优化</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-fei"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/04/25/浏览器兼容问题/">浏览器兼容问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/20/日常String、Number、Array、Math和Json方法/">日常String、Number、Array、Math和Json方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/20/前端优化总结/">前端高性能优化</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.3.0" async></script><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |<a href="/atom.xml">订阅本站</a> |<span>联系博主：<a href="mailto:530399239@qq.com" target="_blank" class="fa fa-email"> </a><a href="http://weibo.com/5898588397" target="_blank" class="fa fa-weibo"></a><a href="https://github.com/angeljie889" target="_blank" class="fa fa-github"> </a></span></p><p><span> Copyright &copy;<a href="/." rel="nofollow">刘杰</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span><span><a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> Theme </a>by<a rel="nofollow" target="_blank" href="https://github.com/chaooo"> Charles.</a></span></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=1.3.0"></script></body></html>
